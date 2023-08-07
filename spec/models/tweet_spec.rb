@@ -5,8 +5,8 @@ RSpec.describe Tweet, type: :model do
     it { should belong_to(:user) }
     it { should belong_to(:bookmark) }
     it { should belong_to(:original_tweet) }
-    it { should have_many(:taggins) }
-    it { should have_many(:hashtags).through(:taggins) }
+    it { should have_many(:taggings) }
+    it { should have_many(:hashtags).through(:taggings) }
     it { should have_many(:replies) } 
     it { should have_many(:likes)}
     it { should have_many(:retweets) } 
