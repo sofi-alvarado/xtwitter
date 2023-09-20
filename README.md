@@ -96,3 +96,5 @@ Ref: follows.follower_user_id > users.user_id
 Ref: follows.following_user_id > users.user_id
 //Relationship with replies and users
 Ref: replies.user_id > users.user_id
+
+![alt text](./app/assets/images/Untitled.png)
