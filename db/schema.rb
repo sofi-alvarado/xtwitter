@@ -10,9 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_09_21_001834) do
+ActiveRecord::Schema[7.0].define(version: 2023_09_21_002634) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "bookmarks", force: :cascade do |t|
+    t.bigint "tweet_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["tweet_id"], name: "index_bookmarks_on_tweet_id"
+    t.index ["user_id"], name: "index_bookmarks_on_user_id"
+  end
 
   create_table "follows", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -52,6 +61,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_21_001834) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "bookmarks", "tweets"
+  add_foreign_key "bookmarks", "users"
   add_foreign_key "follows", "users", column: "follower_user_id"
   add_foreign_key "follows", "users", column: "following_user_id"
   add_foreign_key "replies", "tweets"
