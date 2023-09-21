@@ -8,4 +8,7 @@ class Tweet < ApplicationRecord
   has_one :bookmarks
   #a Tweet can have many likes
   has_many :likes
+  #a Tweet can have many taggins
+  has_many :taggings
+  has_many :hashtags, through: :taggings
 end
