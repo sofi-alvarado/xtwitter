@@ -10,5 +10,8 @@ class Tweet < ApplicationRecord
   has_many :likes
   #a Tweet can have many taggins
   has_many :taggings
-  has_many :hashtags, through: :taggings
+  has_and_belongs_to_many :hashtags, through: :taggings
+
+  validates :content, length: { maximum: 255}, presence: true
 end
+ 

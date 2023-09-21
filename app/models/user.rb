@@ -10,4 +10,6 @@ class User < ApplicationRecord
     has_many :bookmarks
     #a like belongs to an unique user
     has_one :likes
+
+    #validates :name 
 end
