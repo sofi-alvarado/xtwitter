@@ -1,100 +1,115 @@
-# README
+# Practice Lab 1: Twitter Data Modeling
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+The following repository includes: 
+* Active Record Models
+* Migrations
+* Associations
 
-Things you may want to cover:
+## Getting Started
 
-* Ruby version
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes
 
-* System dependencies
+### Prerequisites
 
-* Configuration
+Before you start you'll need:
 
-* Database creation
+* Ruby version 3.1.2
+* Rails version 7.0.4
+* PostgreSQL 14.9
+* Ubuntu OS
 
-* Database initialization
+### Clone the repository
 
-* How to run the test suite
+* Open Terminal.
 
-* Services (job queues, cache servers, search engines, etc.)
+* Change the current working directory to the location where you want the cloned directory.
 
-* Deployment instructions
+* Type git clone, and then paste the URL of this repository.
 
-* ...
+```
+$ git clone https://github.com/sofi-alvarado/xtwitter.git
+```
+* Press Enter and you're ready to go!
 
-Table follows containing the followings fields:
-- follow_id :
-- following_user_id:
-- follower_user_id:
+## Setting up the enviroment
 
-Table users containing the followings fields:
-- user_id integer:
-- name:
-- username:
-- bio:
-- location:
-- link:
+Move to the directory of your project.
 
-Table tweets containing the followings fields:
-tweet_id:
-- user_id:
-- retweet_id:
-- quoted:
-- content:
-- hashtags:
-- created_at:
+```
+$ cd xtwitter
+```
+Connect to PostgreSQL and enter your machine user and password
 
-Table replies containing the followings fields:
-- reply_id:
-- tweet_id:
-- user_id:
-- quote:
+```
+$ sudo su postgres
+```
+Enter to PostgreSQL command line
+```
+$ psql
+```
+Run the following command to modify your PostgreSQL user and password
+```
+$ ALTER USER postgres PASSWORD 'your-password';
+```
+When finish create the database
+```
+$ run rails db:create
+```
+And finally run 
+```
+$ run rails db:migrate
+```
 
-Table hashtags containing the followings fields:
-- hashtag_id:
-- name:
-- tweets:
-
-
-Table taggins containing the followings fields:
-- tweet_id:
-- hashtags_id:
-
-
-Table likes containing the followings fields:
-- likes_id:
-- tweet_id:
-- user_id:
-- likes_count:
-
-Table bookmarks containing the followings fields:
-- bookmark_id:
-- tweet_id integer:
-- user_id:
-
-
-//Ref: xweets.user_id > users.user_id // many-to-one
-//Relationship with Tweets and Users table
-Ref: tweets.user_id > users.user_id
-//Relationship with taggings an tweets
-Ref: taggins.tweet_id > tweets.tweet_id
-//Relationship with taggings and hashtags
-Ref: taggins.tweet_id > hashtags.hashtag_id
-//Relationship with users and bookmarks
-Ref: users.user_id > bookmarks.user_id
-// Realtionship with tweets and replies
-Ref: tweets.tweet_id > replies.tweet_id
-//Self references between tweet_id an retweet_id
-Ref: tweets.tweet_id < tweets.retweet_id
-//Relationship with tweets and likes
-Ref: tweets.tweet_id < likes.tweet_id
-// Relationship with likes and users
-Ref: likes.user_id > users.user_id
-// Relationship with follows and users
-Ref: follows.follower_user_id > users.user_id
-Ref: follows.following_user_id > users.user_id
-//Relationship with replies and users
-Ref: replies.user_id > users.user_id
+## Entity Relationship Diagram explained
 
 ![alt text](./app/assets/images/Untitled.png)
+
+Table **follows** containing the followings fields:
+- **follow_id:** a follow id as primary key.
+- **following_user_id:** a following id as a foreign key.
+- **follower_user_id:** a follower as a foreign key.
+
+
+Table **users** containing the followings fields:
+- **user_id:** a user id as primary key.
+- **name:** to store the name of the user.
+- **username:** unique identifier for a user.
+- **bio:** biography of the user.
+- **location:** location of the user
+- **link:** link to any website or social media.
+
+Table **tweets** containing the followings fields:
+- **tweet_id:** a tweet id id as primary key.
+- **user_id:** an user id as a foreign key.
+- **retweet_id:** a retweet id as a foreign key.
+- **quoted:** boolean type to check if it is a tweet or a repost.
+- **content:** to store the content of a tweet.
+- **hashtags:** to store the hashtags a tweet may have.
+- **created_at:** to show when the tweet was created.
+
+Table **replies** containing the followings fields:
+- **reply_id:** a reply id as primary key.
+- **tweet_id:** a tweet id as a foreign key.
+- **user_id:** an user id as a foreign key.
+- **quote:** to store the content of the reply.
+
+Table **hashtags** containing the followings fields:
+- **hashtag_id:** a hashtag id as primary key.
+- **name:** to store the name of the hashtag
+- **tweets:** to store the tweets that belongs to a hashtag.
+
+Table **taggins** containing the followings fields:
+- **tweet_id:** a tweet id as a foreign key.
+- **hashtags_id:** hashtag id as a foreign key.
+
+
+Table **likes** containing the followings fields:
+- **likes_id:** a like id as primary key.
+- **tweet_id:** a tweet id as a foreign key.
+- **user_id:** an user id id as a foreign key.
+- **likes_count:** to count the likes in tweets.
+
+Table **bookmarks** containing the followings fields:
+- **bookmark_id:** a bookmark id as primary key.
+- **tweet_id:** a tweet id as a foreign key.
+- **user_id:** an user id as a foreign key.
