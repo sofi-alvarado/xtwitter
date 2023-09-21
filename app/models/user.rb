@@ -11,5 +11,7 @@ class User < ApplicationRecord
     #a like belongs to an unique user
     has_one :likes
 
-    #validates :name 
+    #name will be treated as the displaying name in Twitter
+    #I will take lastname as an optional value
+    validates :name, :username, :email, :username, :password, presence: true
 end
