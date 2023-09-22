@@ -19,6 +19,21 @@ class User < ApplicationRecord
     #Add Length validation of 12 characters minimum for password
     validates :password, length: { minimum: 12}, format: { with: /(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*()_+])/ }
     
-    #validates :legacy_code, format: {with: /regex/}
+    #Check the followers of an user
+    #if you want to list all the followings from a user
+    #run rails c, create a new instance
+    # u = User.followers(user_id) and then u.reload!
+    scope :followers, -> (user_id) {
+       joins(:follows_as_follower) #name of association
+        .where(follows: { user_id: user_id })
+    }
 
+    #Check the followings of an user
+    #if you want to list all the followings from a user
+    #run rails c, create a new instance
+    # u = User.followings(user_id) and then u.reload!
+    scope :followings, -> (user_id) {
+       joins(:follows_as_following) #name of association
+        .where(follows: { user_id: user_id })
+    }
 end
