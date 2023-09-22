@@ -15,11 +15,10 @@ class Tweet < ApplicationRecord
   def uniqueness_tweet_id?
     :retweet_id.nil?
   end
-  
-end
 
-#validates :legacy_code, format: {with: /regex/}
-#presence validates the attribute is not nil, or if its present
-#absence the opposite of presence
-#validates :email, uniqueness: true
- 
+  #scope for retrieving tweets from a user
+  #if you want to list all the tweets from a user
+  #run rails c, create a new instance
+  # t = Tweet.tweets_user(user_id) and then t.reload!
+  scope :tweets_user , -> (user_id) { where(user_id: user_id) }
+end
