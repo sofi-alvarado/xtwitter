@@ -38,15 +38,7 @@ class User < ApplicationRecord
     }
 
 #Just for displaying the count
-    scope :follower_count, -> (user_id) {
-        joins(:follows_as_follower) #name of association
-         .where(follows: { user_id: user_id })
-             .count
-     }
-
-    scope :followings_count, -> (user_id) {
-       joins(:follows_as_following) #name of association
-        .where(follows: { user_id: user_id })
-            .count
-    }
+    scope :follower_count, -> (user_id) { followers(user_id).count }
+    scope :followings_count, -> (user_id) { followings(user_id).count }
 end
+ 
