@@ -13,9 +13,9 @@ class User < ApplicationRecord
 
     #name will be treated as the displaying name in Twitter
     #I will take lastname as an optional value 
-    validates :name, :username, :email, :username, :password, presence: true
+    validates :name, :username, :email, :username, :password, presence: { message: "%{attribute} needs to have a value" }
     #Add Uniqueness validation for email and username
-    validates :username, uniqueness: true, presence: { message: "Please enter your text" }
+    validates :username, uniqueness: true
     #Add Length validation of 12 characters minimum for password
     validates :password, length: { minimum: 12}, format: { with: /(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*()_+])/ }
     
