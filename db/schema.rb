@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_09_22_191251) do
+ActiveRecord::Schema[7.0].define(version: 2023_09_25_134036) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -35,7 +35,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_22_191251) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "tweets", array: true
+    t.string "tweets"
   end
 
   create_table "likes", force: :cascade do |t|
@@ -74,7 +74,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_22_191251) do
     t.integer "retweet_id"
     t.boolean "quoted"
     t.text "content", null: false
-    t.string "hashtags", array: true
+    t.string "hashtags"
     t.index ["user_id"], name: "index_tweets_on_user_id"
   end
 
