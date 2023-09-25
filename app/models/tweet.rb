@@ -13,7 +13,7 @@ class Tweet < ApplicationRecord
   validates :content, presence: { message: "Please enter your text" }, if: :uniqueness_tweet_id?
   
   def uniqueness_tweet_id?
-    :retweet_id.nil?
+    retweet_id.nil?
   end
   
 end
