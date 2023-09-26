@@ -37,8 +37,19 @@ class User < ApplicationRecord
         .where(follows: { user_id: user_id })
     }
 
-#Just for displaying the count
+    #Just for displaying the count
     scope :follower_count, -> (user_id) { followers(user_id).count }
     scope :followings_count, -> (user_id) { followings(user_id).count }
+
+    #scope for retrieving tweets from a user
+    #if you want to list all the tweets from a user
+    #run rails c, create a new instance
+    # t = Tweet.tweets_user(user_id) and then t.reload!
+    #Create a new scope that retrieves the tweets of a user
+    scope :tweets_user, ->(user_id) {
+    joins(:tweets)
+      .where(tweets: { user_id: user_id })
+      .pluck("users.username", "tweets.content")
+    }
 end
  

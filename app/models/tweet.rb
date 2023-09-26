@@ -13,27 +13,19 @@ class Tweet < ApplicationRecord
 
   validates :content, presence: true
   validates_associated :user, :retweets
-
-
-  #scope for retrieving tweets from a user
-  #if you want to list all the tweets from a user
-  #run rails c, create a new instance
-  # t = Tweet.tweets_user(user_id) and then t.reload!
-  scope :tweets_user , -> (user_id) { where(user_id: user_id) }
-
-  scope :retweets, -> { where.not(retweet_id: nil) }
   validates :content, presence: true, on: :create_retweet, if: -> { content.present? }
+
+ 
+
+  #Retweets counts: Create a new scope that retrieves the number of retweets
+  scope :retweets_count, -> (tweet_id){ where(retweet_id: tweet_id).count }
   
+  
+  #Retweet method: Create a method that encapsulates the retweet logic accepting a user a parameter
   def create_retweet(user_id)
-    retweet = Tweet.new(user_id: user_id, retweet_id: self.id)
-
-    if retweet.save(validate: false)
-      retweet
-    else
-      # Handle validation errors if any
-      # You can access validation errors with retweet.errors
-      nil
-    end
+    original_tweet = Tweet.find(self.id) # Find the original tweet
+    retweet_content = original_tweet.content # Access the content of the original tweet
+    retweet = Tweet.create(user_id: user_id, content: retweet_content, retweet_id: self.id)
+    retweet
   end
-
 end
