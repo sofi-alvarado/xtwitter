@@ -7,4 +7,9 @@ class Reply < ApplicationRecord
   #Validating if content exists and if is in a length betweent 1 and 255
    #If content is not provided throw message: is too short (minimum is 1 character)", "Please enter your text"
   validates :quote, length: { within:(1...255)}, presence: { message: "Please enter your text" }
+
+  #retrieve replies from a tweet
+  scope :replies_tweet , -> (tweet_id) { where(tweet: tweet_id) }
+
+
 end
