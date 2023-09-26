@@ -4,4 +4,6 @@ class Bookmark < ApplicationRecord
 
   #add association validations to your model
   validates_associated :tweet, :user
+
+  scope :bookmarks, -> (user_id) {where(user_id: user_id)}
 end
