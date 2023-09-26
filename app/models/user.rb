@@ -44,7 +44,7 @@ class User < ApplicationRecord
     #scope for retrieving tweets from a user
     #if you want to list all the tweets from a user
     #run rails c, create a new instance
-    # t = Tweet.tweets_user(user_id) and then t.reload!
+    # t = User.tweets_user(user_id) and then t.reload!
     #Create a new scope that retrieves the tweets of a user
     scope :tweets_user, ->(user_id) {
     joins(:tweets)

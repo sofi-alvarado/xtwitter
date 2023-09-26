@@ -10,16 +10,15 @@ class Tweet < ApplicationRecord
   #Validating if content exists and if in a length betweent 1 and 255
   #If content is not provided throw message: is too short (minimum is 1 character)", "Please enter your text"
   validates :content, length: { within:(1...255)}, presence: { message: "Please enter your text" }
-
+  validates :quote, length: { maximum: 225 }
   validates :content, presence: true
   validates_associated :user, :retweets
-  validates :content, presence: true, on: :create_retweet, if: -> { content.present? }
+  #validates :content, presence: true, on: :create_retweet, if: -> { content.present? }
 
  
 
   #Retweets counts: Create a new scope that retrieves the number of retweets
   scope :retweets_count, -> (tweet_id){ where(retweet_id: tweet_id).count }
-  
   
   #Retweet method: Create a method that encapsulates the retweet logic accepting a user a parameter
   def create_retweet(user_id)
@@ -28,4 +27,19 @@ class Tweet < ApplicationRecord
     retweet = Tweet.create(user_id: user_id, content: retweet_content, retweet_id: self.id)
     retweet
   end
+
+  def create_quoted_retweet(user_id, quote)
+    original_tweet = Tweet.find(self.id) # Find the original tweet
+    tweet_content = original_tweet.content # Access the content of the original tweet
+
+    #user = User.find(user_id)
+
+    quoted_retweet = Tweet.create(user_id: user_id, content: tweet_content, quote_id: self.id, quote: quote)
+    quoted_retweet 
+  end
 end
+
+
+# Example usage:
+# user = User.find(1) # Replace with the actual user you're interested in
+# user_tweets = user.tweets_by_user(user.id)
