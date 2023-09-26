@@ -1,5 +1,6 @@
 FactoryBot.define do
-  factory :tweet do
+  factory :bookmark do
+    tweet { nil }
     user { nil }
   end
 end

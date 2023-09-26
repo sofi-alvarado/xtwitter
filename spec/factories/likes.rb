@@ -1,7 +1,7 @@
 FactoryBot.define do
-  factory :reply do
+  factory :like do
     tweet { nil }
     user { nil }
-    quote { "MyText" }
+    likes_count { 1 }
   end
 end
