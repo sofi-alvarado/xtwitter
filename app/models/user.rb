@@ -13,7 +13,6 @@ class User < ApplicationRecord
     #name will be treated as the displaying name in Twitter
     #I will take lastname as an optional value 
     validates :name, :username, :email, :username, :password, presence: { message: "%{attribute} needs to have a value" }
-    #Add Uniqueness validation for email and username
     #no record with the same user or email wil be created
     validates :username, :email, uniqueness: true
     #Add Length validation of 12 characters minimum for password
@@ -27,7 +26,6 @@ class User < ApplicationRecord
        joins(:follows_as_follower) #name of association
         .where(follows: { user_id: user_id })
     }
-
     #Check the followings of an user
     #if you want to list all the followings from a user
     #run rails c, create a new instance
