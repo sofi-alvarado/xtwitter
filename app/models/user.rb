@@ -38,7 +38,7 @@ class User < ApplicationRecord
     }
 
     #Just for displaying the count
-    scope :follower_count, -> (user_id) { followers(user_id).count }
+    scope :followers_count, -> (user_id) { followers(user_id).count }
     scope :followings_count, -> (user_id) { followings(user_id).count }
 
     #scope for retrieving tweets from a user

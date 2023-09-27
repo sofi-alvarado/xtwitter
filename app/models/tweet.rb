@@ -5,7 +5,7 @@ class Tweet < ApplicationRecord
   has_many :quotes, class_name: "Tweet", foreign_key: :quote_id
   # A bookmark belongs to a single Tweet
   has_many :bookmarks
-  has_many :hashtags
+  #has_many :hashtags
   has_many :likes
   has_many :replies, class_name: "Reply"
   # Validating if content exists and if in a length betweent 1 and 255
