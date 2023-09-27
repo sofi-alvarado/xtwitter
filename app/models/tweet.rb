@@ -10,7 +10,7 @@ class Tweet < ApplicationRecord
   has_many :replies, class_name: "Reply"
   # Validating if content exists and if in a length betweent 1 and 255
   # If content is not provided throw message: is too short (minimum is 1 character)", "Please enter your text"
-  validates :content, length: { within:(1...255)}, presence: { message: "Please enter your text" }
+  validates :content, length: { within:(1...256)}, presence: { message: "Please enter your text" }
   validates :quote, length: { maximum: 225 }
   validates :content, presence: true
   validates_associated :user, :retweets

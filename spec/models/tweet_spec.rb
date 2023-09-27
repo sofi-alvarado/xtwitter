@@ -14,4 +14,9 @@ RSpec.describe Tweet, type: :model do
     it { should have_many(:replies) }
   end
 
+  context "validations" do
+    it { should validate_presence_of(:content) }
+    it { should validate_length_of(:content).is_at_most(255) }
+  end
+
 end
