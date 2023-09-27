@@ -2,7 +2,8 @@ require 'faker'
 
 FactoryBot.define do
   factory :tweet do
-    association :user
-    content { Faker::Lorem.paragraph }
+    user
+    content { Faker::Lorem.characters(number: 255) }
+    quote { Faker::Lorem.characters(number: 255) } 
   end
 end

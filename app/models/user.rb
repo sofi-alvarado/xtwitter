@@ -52,4 +52,3 @@ class User < ApplicationRecord
       .pluck("users.username", "tweets.content")
     }
 end
- 

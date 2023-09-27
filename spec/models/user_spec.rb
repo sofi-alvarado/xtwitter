@@ -6,8 +6,8 @@ RSpec.describe User, type: :model do
   end
 
   context "associations" do
-    it { should have_many(:follows_as_following) }
-    it { should have_many(:follows_as_follower) } 
+    it { should have_many(:follows_as_following).class_name('Follow').with_foreign_key('following_user_id') }
+    it { should have_many(:follows_as_follower).class_name('Follow').with_foreign_key('follower_user_id')  } 
     it { should have_many(:tweets) }
     it { should have_many(:replies) }
     it { should have_many(:bookmarks) }
@@ -30,9 +30,16 @@ RSpec.describe User, type: :model do
       end
   end
 
- 
-  
+  describe 'scopes' do
+
+    it 'tweets_user' do
+      user = create(:user)
+      tweet = create(:tweet, user: user)
+      expect(User.tweets_user(user.id)).to include([user.username, tweet.content])
+    end
+  end
 end
+
 
 
 =begin
@@ -49,4 +56,13 @@ end
     end
   end
 
+    it 'followers_count' do
+      user = create(:user)
+      expect(User.followers_count(user.id)).to eq(1)
+    end
+
+    it 'followings_count' do
+      user = create(:user)
+      expect(User.followings_count(user.id)).to eq(1)
+    end
 =end
