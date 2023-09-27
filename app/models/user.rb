@@ -12,7 +12,7 @@ class User < ApplicationRecord
     has_many :likes, inverse_of: :user
     #name will be treated as the displaying name in Twitter
     #I will take lastname as an optional value 
-    validates :name, :username, :email, :username, :password, presence: { message: "%{attribute} needs to have a value" }
+    validates :name, :username, :email, presence: { message: "needs to have a value" }
     #Add Uniqueness validation for email and username
     #no record with the same user or email wil be created
     validates :username, :email, uniqueness: true
