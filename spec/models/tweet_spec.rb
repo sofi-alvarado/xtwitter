@@ -57,7 +57,6 @@ RSpec.describe Tweet, type: :model do
       end
     end
 
-   
     describe "liking a tweet" do
       it "creates a like for the tweet by the specified user" do
         liked_tweet = tweet.liked_tweet(user.id)
