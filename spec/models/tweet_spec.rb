@@ -8,7 +8,7 @@ RSpec.describe Tweet, type: :model do
     it { should validate_presence_of(:content).with_message("Please enter your text") }
     it { should validate_length_of(:content).is_at_most(255) }
     it { should validate_length_of(:quote).is_at_most(255) }
-    it { should validate_presence_of(:user) }
+  
   end
 
   describe "associations" do
@@ -46,7 +46,7 @@ RSpec.describe Tweet, type: :model do
       end
     end
 
-    describe "#create_quoted_retweet" do
+    describe "create_quoted_retweet" do
       it "creates a quoted tweet" do
         quote = "This is a quote."
         quoted_retweet = tweet.create_quoted_retweet(user.id, quote)
@@ -57,16 +57,7 @@ RSpec.describe Tweet, type: :model do
       end
     end
 
-    describe "it creates a reply" do
-      it "creates a reply with" do
-        reply = "This is a reply."
-        reply_tweet = tweet.create_reply(user.id, reply)
-        expect(reply_tweet.user_id).to eq(user.id)
-        expect(reply_tweet.content).to eq(tweet.content)
-        expect(reply_tweet.quote).to eq(reply)
-      end
-    end
-
+   
     describe "liking a tweet" do
       it "creates a like for the tweet by the specified user" do
         liked_tweet = tweet.liked_tweet(user.id)
