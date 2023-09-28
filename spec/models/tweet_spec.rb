@@ -34,6 +34,7 @@ RSpec.describe Tweet, type: :model do
         expect(Tweet.quotes_count(tweet.id)).to eq(1)
       end
     end
+
   end
 
   describe "methods" do
@@ -64,5 +65,59 @@ RSpec.describe Tweet, type: :model do
         expect(liked_tweet.tweet_id).to eq(tweet.id)
       end
     end
+
   end
 end
+
+=begin
+# spec/requests/tweets_spec.rb
+
+require 'rails_helper'
+
+RSpec.describe "Tweets", type: :request do
+  let(:user) { create(:user) } # Assuming you have a User model and a user factory
+
+  describe "POST /tweets" do
+    context "when creating a tweet successfully" do
+      it "creates a new tweet" do
+        sign_in user
+        tweet_params = { content: "This is a test tweet" }
+
+        post '/tweets', params: { tweet: tweet_params }
+
+        expect(response).to have_http_status(:created)
+        expect(response).to redirect_to(tweet_path(Tweet.last))
+        expect(Tweet.last.content).to eq("This is a test tweet")
+      end
+    end
+
+    context "when creating a tweet fails due to invalid data" do
+      it "does not create a tweet and returns unprocessable entity" do
+        sign_in user
+        tweet_params = { content: "" } # Invalid content
+
+        post '/tweets', params: { tweet: tweet_params }
+
+        expect(response).to have_http_status(:unprocessable_entity)
+        expect(response).to render_template(:new) # Assuming there's a 'new' view for tweets
+      end
+    end
+
+    context "when creating a tweet without authentication" do
+      it "returns unauthorized" do
+        tweet_params = { content: "This is a test tweet" }
+
+        post '/tweets', params: { tweet: tweet_params }
+
+        expect(response).to have_http_status(:unauthorized)
+      end
+    end
+  end
+
+  # Add similar examples for other routes and features...
+end
+
+=end
+
+# spec/routing/tweet_routes_spec.rb
+
