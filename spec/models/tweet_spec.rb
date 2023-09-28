@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Tweet, type: :model do
+
   let(:user) { create(:user) }
   let(:tweet) { create(:tweet, user: user) }
 
@@ -8,7 +9,6 @@ RSpec.describe Tweet, type: :model do
     it { should validate_presence_of(:content).with_message("Please enter your text") }
     it { should validate_length_of(:content).is_at_most(255) }
     it { should validate_length_of(:quote).is_at_most(255) }
-  
   end
 
   describe "associations" do
