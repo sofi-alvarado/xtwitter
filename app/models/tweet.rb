@@ -48,3 +48,16 @@ class Tweet < ApplicationRecord
 
 
 end
+
+    #Check the followings of an user
+    #if you want to list all the followings from a user
+    #run rails c, create a new instance
+    # u = User.followings(user_id) and then u.reload!
+    scope :likes -> (user_id) {
+       joins(:tweets) #name of association
+        .where(follows: { user_id: user_id })
+    }
+
+    #Just for displaying the count
+    scope :followers_count, -> (user_id) { followers(user_id).count }
+    scope :followings_count, -> (user_id) { followings(user_id).count }
