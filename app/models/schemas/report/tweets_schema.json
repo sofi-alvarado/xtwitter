@@ -1,37 +1,41 @@
 {
-  "$schema": "http://json-schema.org/draft-04/schema#",
-  "title": "Tweet",
-  "description": "A Tweet made by an User",
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "title": "Tweet",
+    "description": "A Tweet made by an User",
     "type": "object",
     "properties": {
-        "id": {
-            "description": "A unique identifier for a Tweet",
-            "type": "integer"
-        },
-        "user_id": {
-            "description": "The identifier of the person making the Tweet",
-            "type": "integer"
-        },
-        "content": {
-            "description": "The content of a Tweet",
-            "type": "string"
-        },
-        "hashtags": {
-            "description": "Possible hashtags a Tweet may have",
-            "type": "string"
-        },
-        "retweet_id": {
-            "description": "The identifier of a retweet",
-            "type": "integer"
-        },
-        "quote_id": {
-            "description": "The identifier of a quote",
-            "type": "integer"
-        },
-        "quote": {
-            "description": "The content of a quote",
-            "type": "string"
-        }
+      "id": {
+        "description": "A unique identifier for a Tweet",
+        "type": "integer"
       },
-      "required": [ "id", "user_id","content" ]
-}
+      "user_id": {
+        "description": "The identifier of the person making the Tweet",
+        "type": "integer"
+      },
+      "content": {
+        "description": "The content of a Tweet",
+        "type": "string"
+      },
+      "hashtags": {
+        "description": "Possible hashtags a Tweet may have",
+        "type": "string"
+      },
+      "retweet_id": {
+        "description": "The identifier of a retweet",
+        "type": "integer"
+      },
+      "quote_id": {
+        "description": "The identifier of a quote",
+        "type": "integer"
+      },
+      "quote": {
+        "description": "The content of a quote",
+        "type": "string"
+      }
+    },
+    "required": [
+      "id",
+      "user_id",
+      "content"
+    ]
+  }
