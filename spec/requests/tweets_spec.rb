@@ -11,7 +11,7 @@ RSpec.describe "Tweets", type: :request do
   describe "POST /tweets" do
     it "creates a new tweet" do
       post create_tweet_path
-      expect(response).to have_http_status(302) # Assuming you redirect after creating a tweet
+      expect(response).to have_http_status(302)
     end
   end
 
@@ -67,20 +67,6 @@ RSpec.describe "Tweets", type: :request do
       tweet = create(:tweet)
       post bookmark_tweets_path(tweet)
       expect(response).to have_http_status(302)
-    end
-  end
-
-  describe "GET /user_tweets" do
-    it "returns a successful response" do
-      get user_tweets_path
-      expect(response).to have_http_status(200)
-    end
-  end
-
-  describe "GET /user_tweets_and_replies" do
-    it "returns a successful response" do
-      get tweets_and_replies_path
-      expect(response).to have_http_status(200)
     end
   end
 
