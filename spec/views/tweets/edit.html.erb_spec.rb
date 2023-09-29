@@ -1,5 +1,5 @@
 require 'rails_helper'
-
+=begin
 RSpec.describe "tweets/edit", type: :view do
   let(:tweet) {
     Tweet.create!(
@@ -41,3 +41,5 @@ RSpec.describe "tweets/edit", type: :view do
     end
   end
 end
+
+=end

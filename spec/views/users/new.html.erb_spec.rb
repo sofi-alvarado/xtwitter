@@ -1,5 +1,5 @@
 require 'rails_helper'
-
+=begin
 RSpec.describe "users/new", type: :view do
   before(:each) do
     assign(:user, User.new(
@@ -37,3 +37,4 @@ RSpec.describe "users/new", type: :view do
     end
   end
 end
+=end

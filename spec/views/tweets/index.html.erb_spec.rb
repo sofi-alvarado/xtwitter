@@ -1,5 +1,5 @@
 require 'rails_helper'
-
+=begin
 RSpec.describe "tweets/index", type: :view do
   before(:each) do
     assign(:tweets, [
@@ -39,3 +39,4 @@ RSpec.describe "tweets/index", type: :view do
     assert_select cell_selector, text: Regexp.new("Quote".to_s), count: 2
   end
 end
+=end

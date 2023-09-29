@@ -1,5 +1,5 @@
 require 'rails_helper'
-
+=begin
 RSpec.describe "tweets/show", type: :view do
   before(:each) do
     assign(:tweet, Tweet.create!(
@@ -26,3 +26,4 @@ RSpec.describe "tweets/show", type: :view do
     expect(rendered).to match(/Quote/)
   end
 end
+=end

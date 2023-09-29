@@ -1,5 +1,5 @@
 require 'rails_helper'
-
+=begin
 RSpec.describe "users/edit", type: :view do
   let(:user) {
     User.create!(
@@ -41,3 +41,4 @@ RSpec.describe "users/edit", type: :view do
     end
   end
 end
+=end

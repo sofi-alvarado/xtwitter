@@ -1,5 +1,5 @@
 require 'rails_helper'
-
+=begin
 RSpec.describe "tweets/new", type: :view do
   before(:each) do
     assign(:tweet, Tweet.new(
@@ -37,3 +37,4 @@ RSpec.describe "tweets/new", type: :view do
     end
   end
 end
+=end

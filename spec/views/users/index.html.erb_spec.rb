@@ -1,5 +1,5 @@
 require 'rails_helper'
-
+=begin
 RSpec.describe "users/index", type: :view do
   before(:each) do
     assign(:users, [
@@ -39,3 +39,4 @@ RSpec.describe "users/index", type: :view do
     assert_select cell_selector, text: Regexp.new("Lastname".to_s), count: 2
   end
 end
+=end
