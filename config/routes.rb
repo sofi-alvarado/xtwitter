@@ -20,6 +20,8 @@ Rails.application.routes.draw do
   post '/tweets/:id/reply', to: 'tweets#reply', as: 'reply_tweets'
   # Route a user would use to bookmark an existent tweet
   post '/tweets/:id/bookmark', to: 'tweets#bookmark', as: 'bookmark_tweets'
+  # Route a user would use to create a new user
+  post '/users', to: 'users#create', as: 'create_user'
   # Route a user would use to see any user (him/her self included) tweets, also this route should be paginated, meaning the results should be return in blocks
   get '/user_tweets', to: 'tweets#user_tweets', as: 'user_tweets'
   # Route a user would use to see any user (him/her self included) tweets AND replies
