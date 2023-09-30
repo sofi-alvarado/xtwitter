@@ -1,37 +1,47 @@
 class Tweet < ApplicationRecord
   belongs_to :user
-  #self reference
+  # Self references
   has_many :retweets, class_name: "Tweet", foreign_key: :retweet_id
-  #a bookmark belongs to a single Tweet
+  has_many :quotes, class_name: "Tweet", foreign_key: :quote_id
+  # A bookmark belongs to a single Tweet
   has_many :bookmarks
-  has_many :hashtags
+  #has_many :hashtags
   has_many :likes
-
-  #Validating if content exists and if in a length betweent 1 and 255
-  #If content is not provided throw message: is too short (minimum is 1 character)", "Please enter your text"
-  validates :content, length: { within:(1...255)}
+  has_many :replies, class_name: "Reply"
+  # Validating if content exists and if in a length betweent 1 and 255
+  # If content is not provided throw message: is too short (minimum is 1 character)", "Please enter your text"
+  validates :content, length: {  maximum: 255 }, presence: { message: "Please enter your text" }
+  validates :quote, length: { maximum: 255 }
   validates :content, presence: true
   validates_associated :user, :retweets
 
-
-  #scope for retrieving tweets from a user
-  #if you want to list all the tweets from a user
-  #run rails c, create a new instance
-  # t = Tweet.tweets_user(user_id) and then t.reload!
-  scope :tweets_user , -> (user_id) { where(user_id: user_id) }
-
-  scope :retweets, -> { where.not(retweet_id: nil) }
-  validates :content, presence: true, on: :create_retweet, if: -> { content.present? }
+  # Retweets counts: Create a new scope that retrieves the number of retweets
+  scope :retweets_count, -> (tweet_id){ where(retweet_id: tweet_id).count }
+  # Retweets counts: Create a new scope that retrieves the number of retweets
+  scope :quotes_count, -> (tweet_id){ where(quote_id: tweet_id).count }
   
+  # Retweet method: Create a method that encapsulates the retweet logic accepting a user a parameter
   def create_retweet(user_id)
-    retweet = Tweet.new(user_id: user_id, retweet_id: self.id)
+    original_tweet = Tweet.find(self.id) # Find the original tweet
+    retweet_content = original_tweet.content # Access the content of the original tweet
+    retweet = Tweet.create(user_id: user_id, content: retweet_content, retweet_id: self.id)
+  end
 
-    if retweet.save(validate: false)
-      retweet
-    else
-      # Handle validation errors if any
-      # You can access validation errors with retweet.errors
-      nil
-    end
+  # Create a method that encapsulates the retweet logic accepting a user an a text body as parameter
+  def create_quoted_retweet(user_id, quote)
+    original_tweet = Tweet.find(self.id) # Find the original tweet
+    tweet_content = original_tweet.content # Access the content of the original tweet
+    quoted = Tweet.create(user_id: user_id, content: tweet_content, quote_id: self.id, quote: quote)
+  end
+  # Creating replies
+  def create_reply(user_id, reply)
+    original_tweet = Tweet.find(self.id) # Find the original tweet
+    tweet_reply = Reply.create(tweet_id: self.id, user_id: user_id, quote: reply)
+  end
+
+  # Like a tweet: Create a method that encapsulates the like logic accepting a user
+  def liked_tweet(user_id)
+    tweet = Tweet.find(self.id) # Finding the tweet
+    liked = Like.create(tweet_id: self.id, user_id: user_id)
   end
 end

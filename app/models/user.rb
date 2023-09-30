@@ -12,7 +12,12 @@ class User < ApplicationRecord
     has_many :likes, inverse_of: :user
     #name will be treated as the displaying name in Twitter
     #I will take lastname as an optional value 
-    validates :name, :username, :email, :username, :password, presence: { message: "%{attribute} needs to have a value" }
+    validates :name, :username, :email, presence: { message: "needs to have a value" }
+  
+    # Missing password validation
+    validates :password, presence: { message: "%{attribute} needs to have a value" }
+  
+    #Add Uniqueness validation for email and username
     #no record with the same user or email wil be created
     validates :username, :email, uniqueness: true
     #Add Length validation of 12 characters minimum for password
@@ -35,8 +40,18 @@ class User < ApplicationRecord
         .where(follows: { user_id: user_id })
     }
 
-#Just for displaying the count
-    scope :follower_count, -> (user_id) { followers(user_id).count }
+    #Just for displaying the count
+    scope :followers_count, -> (user_id) { followers(user_id).count }
     scope :followings_count, -> (user_id) { followings(user_id).count }
+
+    #scope for retrieving tweets from a user
+    #if you want to list all the tweets from a user
+    #run rails c, create a new instance
+    # t = User.tweets_user(user_id) and then t.reload!
+    #Create a new scope that retrieves the tweets of a user
+    scope :tweets_user, ->(user_id) {
+    joins(:tweets)
+      .where(tweets: { user_id: user_id })
+      .pluck("users.username", "tweets.content")
+    }
 end
- 
