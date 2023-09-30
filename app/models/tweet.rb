@@ -33,7 +33,6 @@ class Tweet < ApplicationRecord
     tweet_content = original_tweet.content # Access the content of the original tweet
     quoted = Tweet.create(user_id: user_id, content: tweet_content, quote_id: self.id, quote: quote)
   end
-
   # Creating replies
   def create_reply(user_id, reply)
     original_tweet = Tweet.find(self.id) # Find the original tweet
@@ -45,6 +44,4 @@ class Tweet < ApplicationRecord
     tweet = Tweet.find(self.id) # Finding the tweet
     liked = Like.create(tweet_id: self.id, user_id: user_id)
   end
-
-
 end
