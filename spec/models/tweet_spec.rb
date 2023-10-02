@@ -66,6 +66,14 @@ RSpec.describe Tweet, type: :model do
       end
     end
 
+    describe "bookmarking a tweet" do
+      it "creates a bookmark tweet by the specified user" do
+        bookmarked_tweet = tweet.bookmarked_tweet(user.id)
+        expect(bookmarked_tweet.user_id).to eq(user.id)
+        expect(bookmarked_tweet.tweet_id).to eq(tweet.id)
+      end
+    end
+
   end
 end
 

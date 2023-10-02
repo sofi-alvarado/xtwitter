@@ -46,5 +46,9 @@ class Tweet < ApplicationRecord
     liked = Like.create(tweet_id: self.id, user_id: user_id)
   end
 
+  def bookmarked_tweet(user_id)
+    tweet = Tweet.find(self.id) # Finding the tweet
+    bookmarked = Bookmark.create(tweet_id: self.id, user_id: user_id)
+  end
 
 end
