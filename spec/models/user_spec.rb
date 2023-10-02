@@ -2,7 +2,6 @@ require 'rails_helper'
 # Model test
 RSpec.describe User, type: :model do
 
-
   context "associations" do
     it { should have_many(:follows_as_following).class_name('Follow').with_foreign_key('following_user_id') }
     it { should have_many(:follows_as_follower).class_name('Follow').with_foreign_key('follower_user_id')  } 
@@ -34,12 +33,75 @@ RSpec.describe User, type: :model do
       tweet = create(:tweet, user: user)
       expect(User.tweets_user(user.id)).to include([user.username, tweet.content])
     end
+  
+    it 'returns users who are followers of the specified user' do
+      user = create(:user)
+      follower = create(:user)
+      Follow.create(follower_user: follower, following_user: user)
+      expect(User.joins(:follows_as_follower).where(follows: { following_user_id: user.id })).to include(follower)
+    end
+
+    it 'returns users who are being followed by the specified user' do
+      user = create(:user)
+      following = create(:user)
+      Follow.create(follower_user: user, following_user: following)
+      expect(User.joins(:follows_as_following).where(follows: { follower_user_id: user.id })).to include(following)
+    end
+
+    it 'returns the count of followers for the specified user' do
+      user = create(:user)
+      follower1 = create(:user)
+      follower2 = create(:user)
+      Follow.create(follower_user: follower1, following_user: user)
+      Follow.create(follower_user: follower2, following_user: user)
+      expect(User.joins(:follows_as_follower).where(follows: { following_user_id: user.id }).count).to eq(2)
+    end
+
+    it 'returns the count of followings for the specified user' do
+      user = create(:user)
+      following1 = create(:user)
+      following2 = create(:user)
+      Follow.create(follower_user: user, following_user: following1)
+      Follow.create(follower_user: user, following_user: following2)
+      expect(User.joins(:follows_as_following).where(follows: { follower_user_id: user.id }).count).to eq(2)
+    end
+
   end
+
 end
 
 
 
 =begin
+    it 'returns users who are followers of the specified user' do
+      user = create(:user)
+      follower = create(:user)
+      user.follows_as_follower.create(following_user: follower)
+      expect(User.joins(:follows_as_follower).where(follows: { following_user_id: user.id })).to include(follower)
+    end
+
+    it 'returns users who are being followed by the specified user' do
+      user = create(:user)
+      following = create(:user)
+      user.follows_as_following.create(follower_user: following)
+      expect(User.joins(:follows_as_following).where(follows: { follower_user_id: user.id })).to include(following)
+    end
+
+    it 'returns the count of followers for the specified user' do
+      user = create(:user)
+      follower1 = create(:user)
+      follower2 = create(:user)
+      user.follows_as_follower.create(following_user: [follower1, follower2])
+      expect(User.joins(:follows_as_follower).where(follows: { following_user_id: user.id }).count).to eq(2)
+    end
+
+    it 'returns the count of followings for the specified user' do
+      user = create(:user)
+      following1 = create(:user)
+      following2 = create(:user)
+      user.follows_as_following.create(follower_user: [following1, following2])
+      expect(User.joins(:follows_as_following).where(follows: { follower_user_id: user.id }).count).to eq(2)
+    end
 
  describe "scopes" do
     it "returns a list of followers for a user'" do
