@@ -16,6 +16,7 @@ RSpec.describe Tweet, type: :model do
     it { should have_many(:retweets).class_name("Tweet").with_foreign_key(:retweet_id) }
     it { should have_many(:quotes).class_name("Tweet").with_foreign_key(:quote_id) }
     it { should have_many(:bookmarks) }
+    it { should have_many(:taggings) }
     it { should have_many(:likes) }
     it { should have_many(:replies).class_name("Reply") }
   end
@@ -40,7 +41,8 @@ RSpec.describe Tweet, type: :model do
   describe "methods" do
     describe "creating a retweet" do
       it "creates a retweet" do
-        retweet = tweet.create_retweet(user.id)
+        tweet = FactoryBot.create(:tweet)
+        retweet = Tweet.create_retweet(tweet.id, user.id)
         expect(retweet.user_id).to eq(user.id)
         expect(retweet.content).to eq(tweet.content)
         expect(retweet.retweet_id).to eq(tweet.id)
@@ -78,6 +80,26 @@ RSpec.describe Tweet, type: :model do
 end
 
 =begin
+
+
+    describe 'create_hashtags' do
+      it 'creates hashtags for a tweet' do
+        tweet = create(:tweet, content: 'This is a #sample tweet with #hashtags')
+        # no existing hashtags
+        expect(Hashtag.count).to eq(0)
+        Tweet.create_hashtags(tweet)
+        expect(Hashtag.count).to eq(2) # Assuming two unique hashtags
+        # Check that the tweet's hashtags attribute was updated
+        expect(tweet.hashtags).to eq(" #sample #hashtags")
+      end
+      it 'handles tweets without hashtags' do
+        tweet = create(:tweet, content: 'This is a tweet without hashtags')
+        expect(Hashtag.count).to eq(0)
+        Tweet.create_hashtags(tweet)
+        expect(Hashtag.count).to eq(0)
+        expect(tweet.hashtags).to eq("")
+      end
+    end
 # spec/requests/tweets_spec.rb
 
 require 'rails_helper'
