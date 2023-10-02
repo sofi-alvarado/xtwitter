@@ -1,9 +1,7 @@
 require 'rails_helper'
 # Model test
 RSpec.describe User, type: :model do
-  it 'return user' do
-    user = create(:user)
-  end
+
 
   context "associations" do
     it { should have_many(:follows_as_following).class_name('Follow').with_foreign_key('following_user_id') }
@@ -15,8 +13,6 @@ RSpec.describe User, type: :model do
   end
 
   context "unique username and email" do 
-    let(:user) { create(:user) }
-    subject { user }
       it { should validate_uniqueness_of(:email)}
       it { should validate_uniqueness_of(:username)}
   end
@@ -25,6 +21,7 @@ RSpec.describe User, type: :model do
       it { should validate_presence_of(:name).with_message("needs to have a value") }
       it { should validate_presence_of(:username).with_message("needs to have a value")  }
       it { should validate_presence_of(:email).with_message("needs to have a value")  }
+      it { should validate_presence_of(:password).with_message("needs to have a value")  }
       it do 
         should validate_length_of(:password).is_at_least(12).on(:user)
       end

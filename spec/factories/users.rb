@@ -9,6 +9,6 @@ FactoryBot.define do
     location { Faker::Address.country }
     link { Faker::Internet.url }
     email { Faker::Internet.unique.email(name: name) }
-    password { 'hdhshkTTTT111@!!!'}
+    password { Faker::Internet.password(min_length: 12, mix_case: true, special_characters: true)}
   end
 end

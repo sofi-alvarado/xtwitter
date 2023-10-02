@@ -12,13 +12,12 @@ class User < ApplicationRecord
     has_many :likes, inverse_of: :user
     #name will be treated as the displaying name in Twitter
     #I will take lastname as an optional value 
-    validates :name, :username, :email, presence: { message: "needs to have a value" }
+    validates :name, :username, :email, :password, presence: { message: "needs to have a value" }
     #Add Uniqueness validation for email and username
     #no record with the same user or email wil be created
     validates :username, :email, uniqueness: true
     #Add Length validation of 12 characters minimum for password
     validates :password, length: { minimum: 12}, format: { with: /(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*()_+])/ }
-    
     #Check the followers of an user
     #if you want to list all the followings from a user
     #run rails c, create a new instance
