@@ -1,0 +1,50 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "title": "User",
+    "description": "A user of Xwitter application",
+    "type": "object",
+    "properties": {
+      "id": {
+        "description": "A unique identifier for a User",
+        "type": "integer"
+      },
+      "name": {
+        "description": "Name of the user, can be optional",
+        "type": "string"
+      },
+      "username": {
+        "description": "username for the user, serve as unique identifier",
+        "type": "string"
+      },
+      "bio": {
+        "description": "Biography of the user",
+        "type": "string"
+      },
+      "location": {
+        "description": "Location of the user",
+        "type": "string"
+      },
+      "link": {
+        "description": "Any link the user wants to add to its profile",
+        "type": "string"
+      },
+      "email": {
+        "description": "email adress of the user",
+        "type": "string"
+      },
+      "password": {
+        "description": "password of the user",
+        "type": "string"
+      },
+      "lastname": {
+        "description": "lastname of the user, can be optional",
+        "type": "string"
+      }
+    },
+    "required": [
+      "id",
+      "username",
+      "email",
+      "password"
+    ]
+  }
