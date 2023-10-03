@@ -4,9 +4,13 @@ Rails.application.routes.draw do
   
   
   namespace :api do 
-    root 'tweets#index'
-    resources :tweets do
+     resources :tweets do
       member do
+        get 'new', to: 'tweets#new'
+        post 'create', to: 'tweets#create'
+        get 'edit', to: 'tweets#edit'
+        patch 'update', to: 'tweets#update'
+        post 'like', to: 'tweets#like'
         post 'like', to: 'tweets#like'
         delete 'unlike', to: 'tweets#unlike'
         post 'retweet', to: 'tweets#retweet'
@@ -17,8 +21,6 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :tweets, only: [:new, :create]
-    resources :tweets, only: [:edit, :update]
 
     resources :users do
       member do

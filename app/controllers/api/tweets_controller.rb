@@ -1,5 +1,5 @@
 class Api::TweetsController < ApplicationController
-  before_action :set_api_tweet, only: %i[ show update destroy ]
+  before_action :set_api_tweet, only: %i[ show edit update destroy ]
 
   # GET /api/tweets
   # GET /api/tweets.json
@@ -17,35 +17,27 @@ class Api::TweetsController < ApplicationController
 
   # GET /tweets/new
   def new
-    @tweet = Tweet.new
+    
   end
 
   # POST /api/tweets
   # POST /api/tweets.json
   def create
-    @tweet = Tweet.new(tweet_params)
-    respond_to do |format|
-      if @tweet.save
-        format.html { redirect_to tweet_url(@tweet), notice: "Tweet was successfully created." }
-        format.json { render :show, status: :created, location: @tweet }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @tweet.errors, status: :unprocessable_entity }
-      end
+    @tweet = Tweet.new(api_tweet_params)
+    if @tweet.save
+      render :show, status: :created, location: @tweet
+    else
+      render json: @tweet.errors, status: :unprocessable_entity
     end
   end
 
   # PATCH/PUT /api/tweets/1
   # PATCH/PUT /api/tweets/1.json
   def update
-    respond_to do |format|
-      if @tweet.update(tweet_params)
-        format.html { redirect_to tweet_url(@tweet), notice: "Tweet was successfully updated." }
-        format.json { render :show, status: :ok, location: @tweet }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @tweet.errors, status: :unprocessable_entity }
-      end
+    if @tweet.update(api_tweet_params)
+      render :show, status: :ok, location: @tweet
+    else
+      render json: @tweet.errors, status: :unprocessable_entity
     end
   end
 
@@ -69,4 +61,5 @@ class Api::TweetsController < ApplicationController
     def api_tweet_params
       params.require(:tweet).permit(:user_id, :created_at, :updated_at, :content, :hashtags, :retweet_id, :quote_id, :quote)
     end
+
 end
