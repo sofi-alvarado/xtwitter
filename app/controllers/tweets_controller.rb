@@ -16,7 +16,8 @@ class TweetsController < ApplicationController
   end
 
   # GET /tweets/1/edit
-  def edit
+  def edit 
+    @tweet = Tweet.find(params[:id])
   end
 
   # POST /tweets or /tweets.json

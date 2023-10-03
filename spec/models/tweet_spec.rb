@@ -76,7 +76,6 @@ RSpec.describe Tweet, type: :model do
         expect(bookmarked_tweet.tweet_id).to eq(tweet.id)
       end
 
-    
       describe 'create_hashtags' do
         it 'creates hashtags for a tweet' do
           tweet = create(:tweet, content: 'This is a #sample tweet with #hashtags')
