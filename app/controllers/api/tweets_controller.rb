@@ -5,14 +5,14 @@ class Api::TweetsController < ApplicationController
   # GET /api/tweets.json
   def index
     @tweets = Tweet.all
-
+    render json: @tweets
   end
 
   # GET /api/tweets/1
   # GET /api/tweets/1.json
   def show
     @tweet = Tweet.find(params[:id])
-   
+    render json: @tweet
   end
 
   # GET /tweets/new
