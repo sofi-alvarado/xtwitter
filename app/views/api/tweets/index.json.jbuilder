@@ -1,1 +1,1 @@
-json.array! @api_tweets, partial: "api_tweets/api_tweet", as: :api_tweet
+json.array! @tweets, partial: "api/tweets/tweet", as: :tweet
