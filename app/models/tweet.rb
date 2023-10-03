@@ -22,12 +22,14 @@ class Tweet < ApplicationRecord
   
   # Retweet method: Create a method that encapsulates the retweet logic accepting a user a parameter
   def self.create_retweet(tweet_id, user_id)
-    retweet = Tweet.create(user_id: user_id, content: self.content, retweet_id: tweet_id)
+    original_tweet = find(tweet_id)
+    retweet = Tweet.create(user_id: user_id, content: original_tweet.content, retweet_id: tweet_id)
   end
 
   # Create a method that encapsulates the retweet logic accepting a user an a text body as parameter
   def self.create_quoted_retweet(tweet_id, user_id, quote)
-    quoted = Tweet.create(user_id: user_id, content: self.content, quote_id: tweet_id, quote: quote)
+    original_tweet = find(tweet_id)
+    quoted = Tweet.create(user_id: user_id, content: original_tweet.content, quote_id: tweet_id, quote: quote)
   end
 
   # Creating replies
@@ -44,10 +46,6 @@ class Tweet < ApplicationRecord
     bookmarked = Bookmark.create(tweet_id: tweet_id, user_id: user_id)
   end
 
-  def self.tagging_tweet(tweet_id, hashtag_id)
-    tagging = Taggins.create(tweet_id: tweet_id, hashtag_id: hashtag_id)
-  end
-
   def self.create_hashtags(tweet)
     hashtags = tweet.content.scan(/#\w+/)
     tweet.hashtags ||= "" # Initialize if nil
@@ -59,4 +57,11 @@ class Tweet < ApplicationRecord
       end
     end
   end
+  
 end
+
+=begin
+def self.tagging_tweet(tweet_id, hashtag_id)
+    tagging = Taggins.create(tweet_id: tweet_id, hashtag_id: hashtag_id)
+  end
+=end

@@ -39,115 +39,63 @@ RSpec.describe Tweet, type: :model do
   end
 
   describe "methods" do
-    describe "creating a retweet" do
       it "creates a retweet" do
-        tweet = FactoryBot.create(:tweet)
         retweet = Tweet.create_retweet(tweet.id, user.id)
+        expect(retweet).to be_a(Tweet)
         expect(retweet.user_id).to eq(user.id)
         expect(retweet.content).to eq(tweet.content)
         expect(retweet.retweet_id).to eq(tweet.id)
       end
-    end
 
-    describe "create_quoted_retweet" do
       it "creates a quoted tweet" do
         quote = "This is a quote."
-        quoted_retweet = tweet.create_quoted_retweet(user.id, quote)
+        quoted_retweet = Tweet.create_quoted_retweet(tweet.id, user.id, quote)
+
+        expect(quoted_retweet).to be_a(Tweet)
         expect(quoted_retweet.user_id).to eq(user.id)
         expect(quoted_retweet.content).to eq(tweet.content)
         expect(quoted_retweet.quote_id).to eq(tweet.id)
         expect(quoted_retweet.quote).to eq(quote)
       end
-    end
 
-    describe "liking a tweet" do
       it "creates a like for the tweet by the specified user" do
-        liked_tweet = tweet.liked_tweet(user.id)
+        liked_tweet = Tweet.liked_tweet(tweet.id, user.id)
         expect(liked_tweet.user_id).to eq(user.id)
         expect(liked_tweet.tweet_id).to eq(tweet.id)
       end
-    end
 
-    describe "bookmarking a tweet" do
       it "creates a bookmark tweet by the specified user" do
-        bookmarked_tweet = tweet.bookmarked_tweet(user.id)
+        bookmarked_tweet = Tweet.bookmarked_tweet(tweet.id, user.id)
         expect(bookmarked_tweet.user_id).to eq(user.id)
         expect(bookmarked_tweet.tweet_id).to eq(tweet.id)
       end
-    end
 
+      it "creates a bookmark tweet by the specified user" do
+        bookmarked_tweet = Tweet.bookmarked_tweet(tweet.id, user.id)
+        expect(bookmarked_tweet.user_id).to eq(user.id)
+        expect(bookmarked_tweet.tweet_id).to eq(tweet.id)
+      end
+
+    
+      describe 'create_hashtags' do
+        it 'creates hashtags for a tweet' do
+          tweet = create(:tweet, content: 'This is a #sample tweet with #hashtags')
+          # no existing hashtags
+          expect(Hashtag.count).to eq(0)
+          Tweet.create_hashtags(tweet)
+          expect(Hashtag.count).to eq(2) # Assuming two unique hashtags
+          # Check that the tweet's hashtags attribute was updated
+          expect(tweet.hashtags).to eq(" #sample #hashtags")
+        end
+        it 'handles tweets without hashtags' do
+          tweet = create(:tweet, content: 'This is a tweet without hashtags')
+          expect(Hashtag.count).to eq(0)
+          Tweet.create_hashtags(tweet)
+          expect(Hashtag.count).to eq(0)
+          expect(tweet.hashtags).to eq("")
+        end
+      end
   end
 end
 
-=begin
-
-
-    describe 'create_hashtags' do
-      it 'creates hashtags for a tweet' do
-        tweet = create(:tweet, content: 'This is a #sample tweet with #hashtags')
-        # no existing hashtags
-        expect(Hashtag.count).to eq(0)
-        Tweet.create_hashtags(tweet)
-        expect(Hashtag.count).to eq(2) # Assuming two unique hashtags
-        # Check that the tweet's hashtags attribute was updated
-        expect(tweet.hashtags).to eq(" #sample #hashtags")
-      end
-      it 'handles tweets without hashtags' do
-        tweet = create(:tweet, content: 'This is a tweet without hashtags')
-        expect(Hashtag.count).to eq(0)
-        Tweet.create_hashtags(tweet)
-        expect(Hashtag.count).to eq(0)
-        expect(tweet.hashtags).to eq("")
-      end
-    end
-# spec/requests/tweets_spec.rb
-
-require 'rails_helper'
-
-RSpec.describe "Tweets", type: :request do
-  let(:user) { create(:user) } # Assuming you have a User model and a user factory
-
-  describe "POST /tweets" do
-    context "when creating a tweet successfully" do
-      it "creates a new tweet" do
-        sign_in user
-        tweet_params = { content: "This is a test tweet" }
-
-        post '/tweets', params: { tweet: tweet_params }
-
-        expect(response).to have_http_status(:created)
-        expect(response).to redirect_to(tweet_path(Tweet.last))
-        expect(Tweet.last.content).to eq("This is a test tweet")
-      end
-    end
-
-    context "when creating a tweet fails due to invalid data" do
-      it "does not create a tweet and returns unprocessable entity" do
-        sign_in user
-        tweet_params = { content: "" } # Invalid content
-
-        post '/tweets', params: { tweet: tweet_params }
-
-        expect(response).to have_http_status(:unprocessable_entity)
-        expect(response).to render_template(:new) # Assuming there's a 'new' view for tweets
-      end
-    end
-
-    context "when creating a tweet without authentication" do
-      it "returns unauthorized" do
-        tweet_params = { content: "This is a test tweet" }
-
-        post '/tweets', params: { tweet: tweet_params }
-
-        expect(response).to have_http_status(:unauthorized)
-      end
-    end
-  end
-
-  # Add similar examples for other routes and features...
-end
-
-=end
-
-# spec/routing/tweet_routes_spec.rb
-
+   
