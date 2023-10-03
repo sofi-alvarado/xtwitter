@@ -18,15 +18,15 @@
       },
       "bio": {
         "description": "Biography of the user",
-        "type": "string"
+        "type": ["string", "null"]
       },
       "location": {
         "description": "Location of the user",
-        "type": "string"
+        "type": ["string", "null"]
       },
       "link": {
         "description": "Any link the user wants to add to its profile",
-        "type": "string"
+        "type": ["string", "null"]
       },
       "email": {
         "description": "email adress of the user",
@@ -38,7 +38,7 @@
       },
       "lastname": {
         "description": "lastname of the user, can be optional",
-        "type": "string"
+        "type": ["string", "null"]
       }
     },
     "required": [

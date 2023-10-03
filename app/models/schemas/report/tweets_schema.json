@@ -18,19 +18,19 @@
       },
       "hashtags": {
         "description": "Possible hashtags a Tweet may have",
-        "type": "string"
+        "type": ["string", "null"]
       },
       "retweet_id": {
         "description": "The identifier of a retweet",
-        "type": "integer"
+        "type": ["string", "null"]
       },
       "quote_id": {
         "description": "The identifier of a quote",
-        "type": "integer"
+        "type": ["string", "null"]
       },
       "quote": {
         "description": "The content of a quote",
-        "type": "string"
+        "type": ["string", "null"]
       }
     },
     "required": [
