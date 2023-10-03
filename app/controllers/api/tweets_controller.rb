@@ -1,18 +1,18 @@
 class Api::TweetsController < ApplicationController
   before_action :set_api_tweet, only: %i[ show edit update destroy ]
-
+  before_action :set_default_format
   # GET /api/tweets
   # GET /api/tweets.json
   def index
     @tweets = Tweet.all
-    render json: @tweets
+
   end
 
   # GET /api/tweets/1
   # GET /api/tweets/1.json
   def show
     @tweet = Tweet.find(params[:id])
-    render json: @tweet
+   
   end
 
   # GET /tweets/new
@@ -60,6 +60,10 @@ class Api::TweetsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def api_tweet_params
       params.require(:tweet).permit(:user_id, :created_at, :updated_at, :content, :hashtags, :retweet_id, :quote_id, :quote)
+    end
+
+    def set_default_format 
+      request.format = :json unless params[:format]
     end
 
 end
