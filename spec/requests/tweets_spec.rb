@@ -27,7 +27,7 @@ RSpec.describe "/tweets", type: :request do
 
   describe "GET /new" do
     it "renders a successful response" do
-      get new_tweet_url
+      get new_api_tweet_url
       expect(response).to be_successful
     end
   end
@@ -44,12 +44,12 @@ RSpec.describe "/tweets", type: :request do
     context "with valid parameters" do
       it "creates a new Tweet" do
         expect {
-          post tweets_url, params: { tweet: valid_attributes }
+          post api_tweets_url, params: { tweet: valid_attributes }
         }.to change(Tweet, :count).by(1)
       end
 
       it "redirects to the created tweet" do
-        post tweets_url, params: { tweet: valid_attributes }
+        post api_tweets_url, params: { tweet: valid_attributes }
         expect(response).to redirect_to(tweet_url(Tweet.last))
       end
     end
@@ -57,13 +57,13 @@ RSpec.describe "/tweets", type: :request do
     context "with invalid parameters" do
       it "does not create a new Tweet" do
         expect {
-          post tweets_url, params: { tweet: invalid_attributes }
+          post api_tweets_url, params: { tweet: invalid_attributes }
         }.to change(Tweet, :count).by(0)
       end
 
     
       it "renders a response with 422 status (i.e. to display the 'new' template)" do
-        post tweets_url, params: { tweet: invalid_attributes }
+        post api_tweets_url, params: { tweet: invalid_attributes }
         expect(response).to have_http_status(:unprocessable_entity)
       end
     
