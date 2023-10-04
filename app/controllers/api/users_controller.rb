@@ -1,6 +1,6 @@
 class Api::UsersController < ApplicationController
-  before_action :set_api_user, only: %i[ show update destroy ]
-
+  before_action :set_api_user, only: %i[ show edit update destroy ]
+  before_action :set_default_format
   # GET /api/users
   # GET /api/users.json
   def index
@@ -56,5 +56,9 @@ class Api::UsersController < ApplicationController
     # Only allow a list of trusted parameters through.
     def api_user_params
       params.require(:user).permit(:name, :username, :bio, :location, :link, :email, :password, :lastname)
+    end
+
+    def set_default_format 
+      request.format = :json unless params[:format]
     end
 end

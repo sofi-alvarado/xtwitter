@@ -18,14 +18,20 @@ Rails.application.routes.draw do
         get 'stats', to: 'tweets#stats'
       end
     end
+    resources :users do
+      member do
+        get 'users', to: 'users#show'
+        get 'edit', to: 'users#edit'
+        get 'update', to: 'users#update'
+        get 'user_tweets', to: 'tweets#user_tweets'
+        get 'tweets_and_replies', to: 'tweets#user_tweets_and_replies'
+      end
+    end
   end
 
   namespace :web do
-    get 'users/index'
-    get 'users/show'
-    get 'users/edit'
-    get 'users/update'
-    get 'users/create'
+    get 'register', to: 'users#new'
+    post '/users', to: 'users#create'
     
     resources :tweets do
       member do
@@ -38,6 +44,9 @@ Rails.application.routes.draw do
 
     resources :users do
       member do
+        get 'show', to: 'users#show'
+        get 'edit', to: 'users#edit'
+        get 'update', to: 'users#update'
         get 'user_tweets', to: 'tweets#user_tweets'
         get 'tweets_and_replies', to: 'tweets#user_tweets_and_replies'
       end
