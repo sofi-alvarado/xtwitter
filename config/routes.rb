@@ -21,6 +21,20 @@ Rails.application.routes.draw do
   end
 
   namespace :web do
+    get 'users/index'
+    get 'users/show'
+    get 'users/edit'
+    get 'users/update'
+    get 'users/create'
+    
+    resources :tweets do
+      member do
+        get 'new', to: 'tweets#new'
+        post 'create', to: 'tweets#create'
+        get 'edit', to: 'tweets#edit'
+        patch 'update', to: 'tweets#update'
+      end
+    end 
 
     resources :users do
       member do
@@ -28,16 +42,6 @@ Rails.application.routes.draw do
         get 'tweets_and_replies', to: 'tweets#user_tweets_and_replies'
       end
     end
-
-    resources :tweets do
-      member do
-        root "tweets#index"
-        get 'new', to: 'tweets#new'
-        post 'create', to: 'tweets#create'
-        get 'edit', to: 'tweets#edit'
-        patch 'update', to: 'tweets#update'
-      end
-    end 
 
   end
 

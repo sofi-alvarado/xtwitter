@@ -1,1 +1,1 @@
-json.partial! "api/tweets/tweet", tweet: @tweet
+json.partial! "web/tweets/tweet", tweet: @tweet
