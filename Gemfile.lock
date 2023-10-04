@@ -125,6 +125,7 @@ GEM
       activesupport (>= 5.0.0)
     json-schema (4.1.1)
       addressable (>= 2.8)
+    jwt (2.7.1)
     loofah (2.21.3)
       crass (~> 1.0.2)
       nokogiri (>= 1.12.0)
@@ -269,6 +270,7 @@ DEPENDENCIES
   faker!
   jbuilder
   json-schema
+  jwt
   pg (~> 1.1)
   puma (~> 5.0)
   rails (~> 7.0.4)

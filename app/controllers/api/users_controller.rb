@@ -1,6 +1,7 @@
 class Api::UsersController < ApplicationController
   before_action :set_api_user, only: %i[ show edit update destroy ]
   before_action :set_default_format
+  before_action :authenticate_user!
   # GET /api/users
   # GET /api/users.json
   def index
