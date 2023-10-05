@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   #create for tweets
   namespace :api do 
     post :auth, to: "authentication#create"
+    get 'new', to: 'registration#new'
      resources :tweets do
       member do
         get 'new', to: 'tweets#new'
@@ -36,7 +37,7 @@ Rails.application.routes.draw do
 
   namespace :web do
     root to: "tweets#index"
-    get 'register', to: 'users#new'
+    
     post '/users', to: 'users#create'
     
     resources :tweets do

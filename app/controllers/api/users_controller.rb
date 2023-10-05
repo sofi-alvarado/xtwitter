@@ -1,8 +1,8 @@
 class Api::UsersController < Api::ApiController 
+  skip_before_action :authenticate_user!
   before_action :set_default_format
   before_action :set_user, only: %i[ show update ]
-  skip_before_action :authenticate_user!
-
+  
   def show 
     #@followers_count = @user.followers_count.count
     #@followings_count = @user.followings_count.count
