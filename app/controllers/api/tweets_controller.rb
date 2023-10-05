@@ -1,5 +1,6 @@
 class Api::TweetsController < Api::ApiController
   before_action :set_default_format
+  skip_before_action :authenticate_user!
   before_action :set_api_tweet, only: %i[ show update ]
   
 

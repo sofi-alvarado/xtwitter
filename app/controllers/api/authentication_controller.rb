@@ -10,8 +10,5 @@ class Api::AuthenticationController < Api::ApiController
         else 
             render json: { errors: ["Invalid email or password"] }
         end
-
-        #debugger
     end
-
 end

@@ -1,7 +1,7 @@
-class Api::UsersController < ApplicationController
+class Api::UsersController < Api::ApiController 
   before_action :set_default_format
   before_action :set_user, only: %i[ show update ]
-  before_action :authenticate_user!
+  skip_before_action :authenticate_user!
 
   def show 
     #@followers_count = @user.followers_count.count
@@ -28,8 +28,4 @@ class Api::UsersController < ApplicationController
     def user_params
       params.require(:user).permit(:name, :username, :bio, :location, :link, :email, :password, :encrypted_password, :lastname)
     end
-
-    def set_default_format
-      request.format = :json
-  end
 end
