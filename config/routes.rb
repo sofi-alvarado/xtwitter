@@ -3,8 +3,11 @@ Rails.application.routes.draw do
   
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
   root to: "tweets#index"
-
+  # to recieve or send data
+  # show create delete 
+  #create for tweets
   namespace :api do 
+    post :auth, to: "authentication#create"
      resources :tweets do
       member do
         get 'new', to: 'tweets#new'
@@ -32,6 +35,7 @@ Rails.application.routes.draw do
   end
 
   namespace :web do
+    root to: "tweets#index"
     get 'register', to: 'users#new'
     post '/users', to: 'users#create'
     

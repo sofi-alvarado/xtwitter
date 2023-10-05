@@ -39,12 +39,22 @@
       "lastname": {
         "description": "lastname of the user, can be optional",
         "type": ["string", "null"]
+      },
+      "followers": {
+        "description": "the count of followers a user has",
+        "type": "integer"
+      },
+      "followings": {
+        "description": "the count of followings a user follows",
+        "type": "integer"
       }
     },
     "required": [
       "id",
       "username",
       "email",
-      "password"
+      "password",
+      "followers",
+      "followings"
     ]
   }

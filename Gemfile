@@ -59,11 +59,12 @@ group :development do
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem "spring"
 end
+gem 'factory_bot_rails'
 
 group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem 'faker', :git => 'https://github.com/faker-ruby/faker.git', :branch => 'main'
-  gem 'factory_bot_rails'
+  
   gem 'shoulda-matchers', '~> 5.0'
   gem 'rspec-rails', '~> 6.0.0'
   gem "capybara"

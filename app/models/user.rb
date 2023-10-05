@@ -1,8 +1,7 @@
 class User < ApplicationRecord
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable
+    # Include default devise modules. Others available are:
+    # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+    devise :database_authenticatable, :registerable, :recoverable, :rememberable, :validatable
     #Association between users and follows
     has_many :follows_as_following, class_name: "Follow", foreign_key: "following_user_id"
     has_many :follows_as_follower, class_name: "Follow", foreign_key: "follower_user_id"
@@ -22,10 +21,6 @@ class User < ApplicationRecord
     validates :username, :email, uniqueness: true
     #Add Length validation of 12 characters minimum for password
     validates :password, length: { minimum: 12}, format: { with: /(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*()_+])/ }
-    
-    devise :database_authenticatable, :registerable, :recoverable, :rememberable, :validatable
-    
-    
     
     #Check the followers of an user
     #if you want to list all the followings from a user
