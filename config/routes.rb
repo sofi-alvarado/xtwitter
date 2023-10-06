@@ -2,13 +2,27 @@ Rails.application.routes.draw do
   devise_for :users
   
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-  root to: "tweets#index"
+  get "tweets/index"
   # to recieve or send data
   # show create delete 
   #create for tweets
   namespace :api do 
-    post :auth, to: "authentication#create"
-    get 'new', to: 'registration#new'
+    resources :authentication do
+      member do
+       post 'log_in', to: 'authentication#create'
+      end 
+    end  
+    resources :registration do
+      member do
+       post 'create', to: 'registration#create'
+      end 
+    end 
+    resources :sessions do
+      member do
+       post 'log_in', to: 'sessions#create'
+       delete 'log_out', to: 'sessions#destroy'
+      end 
+    end 
      resources :tweets do
       member do
         get 'new', to: 'tweets#new'
