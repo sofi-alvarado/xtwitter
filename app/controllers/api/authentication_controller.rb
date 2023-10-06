@@ -2,9 +2,9 @@ class Api::AuthenticationController < Api::ApiController
     skip_before_action :authenticate_user!
 
     def create
-        Rails.logger.debug "wtf?"
+        #Rails.logger.debug "wtf?"
         user = User.find_by(email: params[:user][:email])
-        debugger
+        #debugger
         if user.valid_password? params[:user][:password]
             render json: { token: Api::JsonWebToken.encode(sub: user.id)}
 

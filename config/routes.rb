@@ -1,11 +1,41 @@
 Rails.application.routes.draw do
-  devise_for :users
+  
+  devise_for :users, controllers: {
+    sessions: 'users/sessions',
+    registration: 'users/registrations'
+  }
   
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
   get "tweets/index"
   # to recieve or send data
   # show create delete 
   #create for tweets
+
+  namespace :web do
+    root to: "tweets#index"
+    
+    post '/users', to: 'users#create'
+    
+    resources :tweets do
+      member do
+        get 'new', to: 'tweets#new'
+        post 'create', to: 'tweets#create'
+        get 'edit', to: 'tweets#edit'
+        patch 'update', to: 'tweets#update'
+      end
+    end 
+
+    resources :users do
+      member do
+        get 'show', to: 'users#show'
+        get 'edit', to: 'users#edit'
+        get 'update', to: 'users#update'
+        get 'user_tweets', to: 'tweets#user_tweets'
+        get 'tweets_and_replies', to: 'tweets#user_tweets_and_replies'
+      end
+    end
+  end
+  
   namespace :api do 
     resources :authentication do
       member do
@@ -49,30 +79,5 @@ Rails.application.routes.draw do
     end
   end
 
-  namespace :web do
-    root to: "tweets#index"
-    
-    post '/users', to: 'users#create'
-    
-    resources :tweets do
-      member do
-        get 'new', to: 'tweets#new'
-        post 'create', to: 'tweets#create'
-        get 'edit', to: 'tweets#edit'
-        patch 'update', to: 'tweets#update'
-      end
-    end 
-
-    resources :users do
-      member do
-        get 'show', to: 'users#show'
-        get 'edit', to: 'users#edit'
-        get 'update', to: 'users#update'
-        get 'user_tweets', to: 'tweets#user_tweets'
-        get 'tweets_and_replies', to: 'tweets#user_tweets_and_replies'
-      end
-    end
-
-  end
 
 end

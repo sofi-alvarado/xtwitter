@@ -1,4 +1,5 @@
 class Web::TweetsController < ApplicationController
+    before_action :authenticate_user!
     before_action :set_tweet, only: %i[ show edit update destroy ]
 
     # GET /tweets or /tweets.json
@@ -10,12 +11,12 @@ class Web::TweetsController < ApplicationController
     def show
         @tweet = Tweet.find(params[:id])
         # Additional code to display the tweet details in the show view
-    end
+    end 
       
   
     # GET /tweets/new
     def new
-      @tweet = Tweet.new
+      @tweet = Tweet.new(user: current_user)
     end
   
     # GET /tweets/1/edit
