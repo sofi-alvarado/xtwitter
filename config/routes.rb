@@ -4,9 +4,9 @@ Rails.application.routes.draw do
     sessions: 'users/sessions',
     registration: 'users/registrations'
   }
-  
+  root to: 'application#root_redirect'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-  get "tweets/index"
+  #get "tweets/index"
   # to recieve or send data
   # show create delete 
   #create for tweets
