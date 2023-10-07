@@ -30,7 +30,7 @@ class Web::TweetsController < ApplicationController
       @tweet = Tweet.new(tweet_params)
       respond_to do |format|
         if @tweet.save
-          format.html { redirect_to web_tweet_url(@tweet), notice: "Tweet was successfully created." }
+          format.html { redirect_to web_tweets_path, notice: "Tweet was successfully created." }
         else
           format.html { render :new, status: :unprocessable_entity }
         end
