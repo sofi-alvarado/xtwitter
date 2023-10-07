@@ -13,7 +13,7 @@ class Tweet < ApplicationRecord
   validates :content, length: {  maximum: 255 }, presence: { message: "Please enter your text" }
   validates :quote, length: { maximum: 255 }
   validates :content, presence: true
-  validates_associated :user, :retweets
+  #validates_associated :user, :retweets
 
   # Retweets counts: Create a new scope that retrieves the number of retweets
   scope :retweets_count, -> (tweet_id){ where(retweet_id: tweet_id).count }

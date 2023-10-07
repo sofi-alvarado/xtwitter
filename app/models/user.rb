@@ -6,7 +6,7 @@ class User < ApplicationRecord
     has_many :follows_as_following, class_name: "Follow", foreign_key: "following_user_id"
     has_many :follows_as_follower, class_name: "Follow", foreign_key: "follower_user_id"
     #an user can have many tweets 
-    has_many :tweets, inverse_of: :user
+    has_many :tweets
     #an user can have many replies
     has_many :replies
     #an user can have many bookmarks
