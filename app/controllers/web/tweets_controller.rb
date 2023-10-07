@@ -4,7 +4,8 @@ class Web::TweetsController < ApplicationController
 
     # GET /tweets or /tweets.json
     def index
-      @tweets = Tweet.all
+      user_ids = [current_user.id] + current_user.follows_as_following.pluck(:following_user_id)
+      @tweets = Tweet.where(user_id: user_ids).order(created_at: :desc)
     end
   
     # GET /tweets/1 or /tweets/1.json
@@ -68,7 +69,7 @@ class Web::TweetsController < ApplicationController
       if user_signed_in?
         redirect_to web_tweets_path
       else
-        @random_tweets = Tweet.order("RANDOM()").limit(10)
+        @random_tweets = Tweet.order(created_at: :desc).order("RANDOM()").limit(10)
         render 'web/tweets/public_tweets' 
       end
     end
