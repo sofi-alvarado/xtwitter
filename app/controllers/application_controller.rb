@@ -7,12 +7,4 @@ protected
     end
 
 
-    def root_redirect
-        if user_signed_in?
-          redirect_to tweets_path
-        else
-          @random_tweets = Tweet.order("RANDOM()").limit(10)
-          render 'tweets/index'
-        end
-    end
 end

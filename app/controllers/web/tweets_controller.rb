@@ -1,5 +1,5 @@
 class Web::TweetsController < ApplicationController
-    before_action :authenticate_user!
+    before_action :authenticate_user!,  except: [:sign_in_or_redirect]
     before_action :set_tweet, only: %i[ show edit update destroy ]
 
     # GET /tweets or /tweets.json
@@ -61,8 +61,18 @@ class Web::TweetsController < ApplicationController
         format.json { head :no_content }
       end
     end
+
+    def sign_in_or_redirect
+      if user_signed_in?
+        redirect_to web_tweets_path
+      else
+        @random_tweets = Tweet.order("RANDOM()").limit(10)
+        render 'web/tweets/public_tweets' 
+      end
+    end
   
     private
+
       # Use callbacks to share common setup or constraints between actions.
       def set_tweet
         @tweet = Tweet.find(params[:id])
