@@ -1,7 +1,12 @@
 <div id="<%= dom_id tweet %>">
   <p>
     <strong>User:</strong>
-    <%= tweet.user_id %>
+    <%= tweet.user.name %>
+  </p>
+
+  <p>
+    <strong>Username:</strong>
+    <%= tweet.user.username %>
   </p>
 
   <p>
@@ -9,29 +14,9 @@
     <%= tweet.content %>
   </p>
 
-  <p>
-    <strong>Hashtags:</strong>
-    <%= tweet.hashtags %>
-  </p>
-  
  <p>
     <strong>Created at:</strong>
     <%= tweet.created_at %>
-  </p>
-
-  <p>
-    <strong>Updated at:</strong>
-    <%= tweet.updated_at %>
-  </p>
-
-  <p>
-    <strong>Retweet:</strong>
-    <%= tweet.retweet_id %>
-  </p>
-
-  <p>
-    <strong>ID quote:</strong>
-    <%= tweet.quote_id %>
   </p>
 
   <p>

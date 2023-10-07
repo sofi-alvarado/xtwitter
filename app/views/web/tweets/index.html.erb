@@ -3,15 +3,17 @@
 <h1>Tweets</h1>
 <% if user_signed_in? %>
   <%= button_to "Logout", destroy_user_session_path, method: :delete %>
+
 <% end %>
+<%= link_to "New tweet", new_web_tweet_path %>
 
 <div id="tweets">
   <% @tweets.each do |tweet| %>
     <%= render tweet %>
     <p>
-      <%= link_to "Show this tweet", web_tweets_path(tweet) %>
+      <%= link_to "Show this tweet", web_tweet_path(tweet) %>
     </p>
   <% end %>
 </div>
 
-<%= link_to "New tweet", new_web_tweet_path %>
+

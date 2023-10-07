@@ -1,10 +1,11 @@
-<%= form_with(model: tweet) do |form| %>
-  <% if tweet.errors.any? %>
+<h1><%= current_user.username%></h1>
+<%= form_for(@tweet, url: web_tweets_path, method: :post) do |form| %>
+  <% if @tweet.errors.any? %>
     <div style="color: red">
-      <h2><%= pluralize(tweet.errors.count, "error") %> prohibited this tweet from being saved:</h2>
+      <h2><%= pluralize(@tweet.errors.count, "error") %> prohibited this tweet from being saved:</h2>
 
       <ul>
-        <% tweet.errors.each do |error| %>
+        <% @tweet.errors.each do |error| %>
           <li><%= error.full_message %></li>
         <% end %>
       </ul>
@@ -13,18 +14,10 @@
 
   <div>
     <%= form.label :user_id, style: "display: block" %>
-    <%= form.text_field :user_id %>
+    <%= form.hidden_field  :user_id %>
   </div>
 
-  <div>
-    <%= form.label :created_at, style: "display: block" %>
-    <%= form.text_field :created_at %>
-  </div>
 
-  <div>
-    <%= form.label :updated_at, style: "display: block" %>
-    <%= form.text_field :updated_at %>
-  </div>
 
   <div>
     <%= form.label :content, style: "display: block" %>
@@ -33,22 +26,21 @@
 
   <div>
     <%= form.label :hashtags, style: "display: block" %>
-    <%= form.text_field :hashtags %>
+    <%= form.hidden_field :hashtags %>
   </div>
 
   <div>
-    <%= form.label :retweet_id, style: "display: block" %>
-    <%= form.text_field :retweet_id %>
+    <%= form.hidden_field :retweet_id %>
   </div>
 
   <div>
-    <%= form.label :quote_id, style: "display: block" %>
-    <%= form.text_field :quote_id %>
+ 
+    <%= form.hidden_field :quote_id %>
   </div>
 
   <div>
     <%= form.label :quote, style: "display: block" %>
-    <%= form.text_field :quote %>
+    <%= form.hidden_field :quote %>
   </div>
 
   <div>

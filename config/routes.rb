@@ -14,17 +14,17 @@ Rails.application.routes.draw do
 
 root to: 'web/tweets#sign_in_or_redirect'
 
-  namespace :web do
-  
-    
-    post '/users', to: 'users#create'
-    
+  namespace :web do   
+    resources :tweets  
     resources :tweets do
       member do
-        get 'new', to: 'tweets#new'
-        post 'create', to: 'tweets#create'
-        get 'edit', to: 'tweets#edit'
-        patch 'update', to: 'tweets#update'
+        post 'like', to: 'tweets#like'
+        delete 'unlike', to: 'tweets#unlike'
+        post 'retweet', to: 'tweets#retweet'
+        post 'quote', to: 'tweets#quote'
+        post 'reply', to: 'tweets#reply'
+        post 'bookmark', to: 'tweets#bookmark'
+        get 'stats', to: 'tweets#stats'
       end
     end 
 
@@ -58,10 +58,6 @@ root to: 'web/tweets#sign_in_or_redirect'
     end 
      resources :tweets do
       member do
-        get 'new', to: 'tweets#new'
-        post 'create', to: 'tweets#create'
-        get 'edit', to: 'tweets#edit'
-        patch 'update', to: 'tweets#update'
         post 'like', to: 'tweets#like'
         delete 'unlike', to: 'tweets#unlike'
         post 'retweet', to: 'tweets#retweet'
@@ -71,6 +67,7 @@ root to: 'web/tweets#sign_in_or_redirect'
         get 'stats', to: 'tweets#stats'
       end
     end
+
     resources :users do
       member do
         get 'users', to: 'users#show'

@@ -1,5 +1,5 @@
 class Web::TweetsController < ApplicationController
-    before_action :authenticate_user!,  except: [:sign_in_or_redirect]
+    before_action :authenticate_user!,  except: [:sign_in_or_redirect], only: [:feed]
     before_action :set_tweet, only: %i[ show edit update destroy ]
 
     # GET /tweets or /tweets.json
@@ -21,7 +21,7 @@ class Web::TweetsController < ApplicationController
   
     # GET /tweets/1/edit
     def edit 
-      @tweet = Tweet.find(params[:id])
+ 
     end
   
     # POST /tweets or /tweets.json
@@ -31,10 +31,8 @@ class Web::TweetsController < ApplicationController
       respond_to do |format|
         if @tweet.save
           format.html { redirect_to web_tweet_url(@tweet), notice: "Tweet was successfully created." }
-          format.json { render :show, status: :created, location: @tweet }
         else
           format.html { render :new, status: :unprocessable_entity }
-          format.json { render json: @tweet.errors, status: :unprocessable_entity }
         end
       end
     end
@@ -44,10 +42,8 @@ class Web::TweetsController < ApplicationController
       respond_to do |format|
         if @tweet.update(tweet_params)
           format.html { redirect_to web_tweet_url(@tweet), notice: "Tweet was successfully updated." }
-          format.json { render :show, status: :ok, location: @tweet }
         else
           format.html { render :edit, status: :unprocessable_entity }
-          format.json { render json: @tweet.errors, status: :unprocessable_entity }
         end
       end
     end
@@ -61,6 +57,13 @@ class Web::TweetsController < ApplicationController
         format.json { head :no_content }
       end
     end
+
+   
+    def feed
+      user_ids = [current_user.id] + current_user.following_ids
+      @tweets = Tweet.where(user_id: user_ids).order(created_at: :desc)
+    end
+
 
     def sign_in_or_redirect
       if user_signed_in?
@@ -80,6 +83,6 @@ class Web::TweetsController < ApplicationController
   
       # Only allow a list of trusted parameters through.
       def tweet_params
-        params.require(:tweet).permit(:user_id, :created_at, :updated_at, :content, :hashtags, :retweet_id, :quote_id, :quote)
+        params.require(:tweet).permit(:user_id, :content, :hashtags, :retweet_id, :quote_id, :quote)
       end
 end
