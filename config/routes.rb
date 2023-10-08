@@ -30,6 +30,7 @@ root to: 'web/tweets#sign_in_or_redirect'
     resources :users 
     resources :users do
       member do
+        get '/users/:username', to: 'users#custom_show', as: :user_profile
         get 'user_tweets', to: 'tweets#user_tweets'
         get 'tweets_and_replies', to: 'tweets#user_tweets_and_replies'
       end

@@ -3,10 +3,9 @@
 <%= render @tweet %>
 
 <div>
-  <%= link_to "Edit this tweet", edit_web_tweet_url(@tweet) %> |
-  <%= link_to "Back to tweets",  web_tweets_path %>
-
-  
-
-  <%= button_to "Destroy this tweet", new_web_tweet_path(@tweet), method: :delete %>
+   <dl class="row m-3">
+      <dt class="col-sm-3"><%= link_to "Edit this tweet", edit_web_tweet_url(@tweet), class: "btn-custom" %></dt>
+      <dd class="col-sm-3"><%= button_to "Delete this tweet", new_web_tweet_path(@tweet), class: "btn btn-danger", method: :delete %></dd>
+      <dd class="col-sm-3"><%= link_to "Back to tweets",  web_tweets_path, class: "btn-custom" %></dd>
+  <dl>
 </div>

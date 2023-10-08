@@ -1,32 +1,4 @@
 <div id="<%= dom_id tweet %>">
-  <%
-=begin%>
- <p>
-    <strong>User:</strong>
-    <%= tweet.user.name %>
-  </p>
-
-  <p>
-    <strong>Username:</strong>
-    <%= tweet.user.username %>
-  </p>
-
-  <p>
-    <strong>Content:</strong>
-    <%= tweet.content %>
-  </p>
-
- <p>
-    <strong>Created at:</strong>
-    <%= tweet.created_at %>
-  </p>
-
-  <p>
-    <strong>Quote:</strong>
-    <%= tweet.quote %>
-  </p> 
-<%
-=end%>
 <div class="container">
   <div class="row">
     <div class="col-md-12 mx-auto">
@@ -34,13 +6,11 @@
         <div class="card">
           <div class="card-body p-4">
             <div class="media">
-              <!-- User's profile picture -->
-
+         
               <h5 class="mt-0"><i class="fas fa-user fa-lg"></i> <strong> <%= tweet.user.name %> </strong> <%= tweet.user.username %><small class="text-muted"> <%= tweet.created_at %> </small></h5>
               <div class="media-body">
                 <p class="card-text"><%= tweet.content %></p>
 
-                <!-- Interaction buttons -->
                 <div class="btn-group">
                  <button type="button" class="react-icons">
                     <i class="fa-regular fa-comment"></i>
@@ -60,5 +30,4 @@
     </div>
   </div>
 </div>
-
 </div>

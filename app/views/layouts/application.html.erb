@@ -12,22 +12,19 @@
   <body>
   <div class="container">
   <div class="row">
-    <!-- Sidebar (Left Column) -->
     <div class="col-md-3 sidebar">
       <ul>
         <li><%= link_to(web_tweets_path) do %><i class="fas fa-home fa-lg"></i> Home <% end %></li>
-        <li>
-          <%= link_to web_user_path(current_user) do %>
-          <i class="fas fa-user fa-lg"></i> Profile <% end %>
-        </li>
-
-        <!-- Add more items as needed -->
+            <% if user_signed_in? %>
+              <li>
+                <%= link_to web_user_path(current_user) do %><i class="fas fa-user fa-lg"></i> Profile <% end %>
+              </li>
+              <li><%= link_to("Post", new_web_tweet_path, class: "btn btn-custom btn-post")%></li>
+              <li><i class="fas fa-user fa-lg"></i><%= current_user.username%></li>
+            <% end %>
       </ul>
-      <%= link_to("Post", new_web_tweet_path, class: "btn btn-post")%>
     </div>
-    <!-- Main content (Right Column) -->
     <div class="col-md-9">
-      <p class="notice"><%= notice %></p>
       <p class="alert"><%= alert %></p>
       <%= yield %>
     </div>

@@ -59,6 +59,10 @@ class Web::UsersController < ApplicationController
     end
   end
 
+  def custom_show
+    @user = User.find_by(username: params[:username])
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user

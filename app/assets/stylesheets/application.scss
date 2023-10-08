@@ -47,7 +47,7 @@ body {
     margin: 20px;
   }
 
-  .btn {
+  .btn-custom {
     font-weight: bold;
     padding: 10px 7px;
     background-color: #1DA1F2;
@@ -83,6 +83,11 @@ body {
 
 .react-icons {
     border: none;
+    color: #ffffff;
+    background-color: #000000;
+}
+
+.form-control {
     color: #ffffff;
     background-color: #000000;
 }

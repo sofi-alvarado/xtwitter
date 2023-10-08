@@ -1,42 +1,25 @@
-<div id="<%= dom_id user %>">
-  <p>
-    <strong>Name:</strong>
-    <%= user.name %>
-  </p>
+<div class="container">
+  <div id="<%= dom_id user %>">
+    <h2>User Profile</h2>
 
-  <p>
-    <strong>Lastname:</strong>
-    <%= user.lastname %>
-  </p>
-  
-  <p>
-    <strong>Username:</strong>
-    <%= user.username %>
-  </p>
+    <dl class="row">
+      <dt class="col-sm-3"><strong>Name:</strong></dt>
+      <dd class="col-sm-9"><%= user.name %></dd>
 
-  <p>
-    <strong>Bio:</strong>
-    <%= user.bio %>
-  </p>
+      <dt class="col-sm-3"><strong>Lastname:</strong></dt>
+      <dd class="col-sm-9"><%= user.lastname %></dd>
 
-  <p>
-    <strong>Location:</strong>
-    <%= user.location %>
-  </p>
+      <dt class="col-sm-3"><strong>Username:</strong></dt>
+      <dd class="col-sm-9"><%= user.username %></dd>
 
-  <p>
-    <strong>Link:</strong>
-    <%= user.link %>
-  </p>
+      <dt class="col-sm-3"><strong>Bio:</strong></dt>
+      <dd class="col-sm-9"><%= user.bio %></dd>
 
-  <p>
-    <strong>Email:</strong>
-    <%= user.email %>
-  </p>
+      <dt class="col-sm-3"><strong>Location:</strong></dt>
+      <dd class="col-sm-9"><%= user.location %></dd>
 
-  <p>
-    <strong>Password:</strong>
-    <%= user.password %>
-  </p>
-
+      <dt class="col-sm-3"><strong>Email:</strong></dt>
+      <dd class="col-sm-9"><%= user.email %></dd>
+    </dl>
+  </div>
 </div>

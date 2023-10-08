@@ -2,7 +2,7 @@
 
 <h1>Tweets</h1>
 <% if user_signed_in? %>
-  <%= button_to "Logout", destroy_user_session_path, method: :delete %>
+  <%= button_to "Logout", destroy_user_session_path, class: "btn btn-danger", method: :delete %>
 
 <% end %>
 <%= link_to "New tweet", new_web_tweet_path %>

@@ -3,11 +3,8 @@
 <%= render @user %>
 
 <div>
-  <%= link_to "Edit this user", edit_web_user_url(@user) %> |
-  <%= link_to "Back to users",  web_users_path %>
-
-  <%= button_to "Destroy this user", new_web_user_path(@user), method: :delete %>
+  <dl class="row">
+      <dt class="col-sm-3"><%= link_to "Edit my profile", edit_web_user_url(@user), class: "btn btn-custom" %> </dt>
+      <dt class="col-sm-3"><%= button_to "Delete my account", new_web_user_path(@user), class: "btn btn-danger", method: :delete %> </dt>
+  <dl>
 </div>
-
-
-
