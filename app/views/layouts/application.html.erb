@@ -5,13 +5,33 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
     <%= stylesheet_link_tag "application" %>
   </head>
 
   <body>
+  <div class="container">
+  <div class="row">
+    <!-- Sidebar (Left Column) -->
+    <div class="col-md-3 sidebar">
+      <ul>
+        <li><%= link_to(web_tweets_path) do %><i class="fas fa-home fa-lg"></i> Home <% end %></li>
+        <li>
+          <%= link_to web_user_path(current_user) do %>
+          <i class="fas fa-user fa-lg"></i> Profile <% end %>
+        </li>
+
+        <!-- Add more items as needed -->
+      </ul>
+      <%= link_to("Post", new_web_tweet_path, class: "btn btn-post")%>
+    </div>
+    <!-- Main content (Right Column) -->
+    <div class="col-md-9">
       <p class="notice"><%= notice %></p>
       <p class="alert"><%= alert %></p>
-    <%= yield %>
+      <%= yield %>
+    </div>
+  </div>
+</div>
   </body>
 </html>

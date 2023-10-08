@@ -1,0 +1,70 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS (and SCSS, if configured) file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+
+ @import "bootstrap";
+ @import "font-awesome";
+
+ /* Change the background color */
+body {
+    margin: 0;
+    background-color: #000000; 
+    color: #ffffff; 
+    font-family: 'Open Sans', sans-serif;
+  }
+  
+  
+  /* Change the font size for all paragraphs */
+  p {
+    font-size: 16px; /* Replace with your desired font size */
+  }
+
+  .sidebar ul {
+    list-style: none; /* Remove default list-style */
+    padding: 0; /* Remove default padding */
+    margin: 0; /* Remove default margin */
+  }
+  
+  a {
+    color: white;
+    text-decoration: none;
+  }
+
+  .sidebar ul li {
+    padding: 8px 0; /* Add some padding for spacing between items */
+    margin: 20px;
+  }
+
+  .btn {
+    font-weight: bold;
+    padding: 10px 7px;
+    background-color: #1DA1F2;
+    color: #ffffff;
+  }
+
+  .btn:hover {
+    background-color: #1387d0;
+  }
+
+  .btn-post {
+    width: 90%;
+    min-height: 52px;
+    border-radius: 9999px;
+    box-sizing: border-box;
+  }
+
+  .container {
+    margin: 0;
+  }

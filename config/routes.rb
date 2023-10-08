@@ -27,12 +27,9 @@ root to: 'web/tweets#sign_in_or_redirect'
         get 'stats', to: 'tweets#stats'
       end
     end 
-
+    resources :users 
     resources :users do
       member do
-        get 'show', to: 'users#show'
-        get 'edit', to: 'users#edit'
-        get 'update', to: 'users#update'
         get 'user_tweets', to: 'tweets#user_tweets'
         get 'tweets_and_replies', to: 'tweets#user_tweets_and_replies'
       end

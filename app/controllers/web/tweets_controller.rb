@@ -1,5 +1,5 @@
 class Web::TweetsController < ApplicationController
-    before_action :authenticate_user!,  except: [:sign_in_or_redirect], only: [:feed]
+    before_action :authenticate_user!,  except: [:sign_in_or_redirect]
     before_action :set_tweet, only: %i[ show edit update destroy ]
 
     # GET /tweets or /tweets.json
@@ -59,12 +59,6 @@ class Web::TweetsController < ApplicationController
     end
 
    
-    def feed
-      user_ids = [current_user.id] + current_user.following_ids
-      @tweets = Tweet.where(user_id: user_ids).order(created_at: :desc)
-    end
-
-
     def sign_in_or_redirect
       if user_signed_in?
         redirect_to web_tweets_path
