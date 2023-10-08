@@ -1,7 +1,8 @@
 class Web::TweetsController < ApplicationController
+  include TweetsConcerns
     before_action :authenticate_user!,  except: [:sign_in_or_redirect]
     before_action :set_tweet, only: %i[ show edit update destroy ]
-
+    
     # GET /tweets or /tweets.json
     def index
       user_ids = [current_user.id] + current_user.follows_as_following.pluck(:following_user_id)
@@ -58,6 +59,19 @@ class Web::TweetsController < ApplicationController
       end
     end
 
+    def like
+      @tweet = Tweet.find(params[:id])
+      @like = Like.new(user: current_user, tweet: @tweet)
+  
+      respond_to do |format|
+        if @like.save
+          format.html { redirect_to web_tweet_path(@tweet), notice: "Liked the tweet!" }
+        else
+          format.html { redirect_to web_tweet_path(@tweet), alert: "Unable to like the tweet." }
+        end
+      end
+    end
+  
    
     def sign_in_or_redirect
       if user_signed_in?

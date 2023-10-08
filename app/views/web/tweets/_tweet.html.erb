@@ -1,5 +1,7 @@
 <div id="<%= dom_id tweet %>">
-  <p>
+  <%
+=begin%>
+ <p>
     <strong>User:</strong>
     <%= tweet.user.name %>
   </p>
@@ -22,6 +24,41 @@
   <p>
     <strong>Quote:</strong>
     <%= tweet.quote %>
-  </p>
+  </p> 
+<%
+=end%>
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 mx-auto">
+     <%= link_to web_tweet_path(tweet) do %>
+        <div class="card">
+          <div class="card-body p-4">
+            <div class="media">
+              <!-- User's profile picture -->
+
+              <h5 class="mt-0"><i class="fas fa-user fa-lg"></i> <strong> <%= tweet.user.name %> </strong> <%= tweet.user.username %><small class="text-muted"> <%= tweet.created_at %> </small></h5>
+              <div class="media-body">
+                <p class="card-text"><%= tweet.content %></p>
+
+                <!-- Interaction buttons -->
+                <div class="btn-group">
+                 <button type="button" class="react-icons">
+                    <i class="fa-regular fa-comment"></i>
+                  </button>
+                  <button type="button" class="react-icons">
+                    <i class="fas fa-retweet"></i>
+                  </button>
+                   <%= button_to like_web_tweet_path(tweet), method: :post, class: "react-icons" do %>
+                    <i class="fa-regular fa-heart"></i> <%= tweet.likes.count %>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
 
 </div>
